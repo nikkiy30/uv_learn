@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Python関連
+backend/.venv/
+backend/__pycache__/
+
+# Node.js関連（将来用）
+frontend/node_modules/
+
+# 秘密情報
+.env
