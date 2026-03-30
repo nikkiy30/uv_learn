@@ -1,13 +1,27 @@
 from fastapi import FastAPI
+from .schemas import AlchemyRequest, AlchemyResponse
+from .services.alchemy import AlchemyService
 
-# 1. FastAPIの「本体」をインスタンス化
-# これが、あなたのWebサーバーの「心臓」になります。
 app = FastAPI()
+alchemy_service = AlchemyService() # インスタンス化
 
-# 2. 「@」はデコレータ。特定のURLに来た時の挙動を指定します。
-# 「/」に「GET（取得）」しに来たら、下の関数を実行せよ、という命令です。
 @app.get("/")
 def read_root():
-    # 3. 辞書型（{}）を返すと、FastAPIが勝手に「JSON」に変換してくれます。
-    # これがフロントエンド（JS）との共通言語になります。
-    return {"status": "success", "message": "My clean start!"}
+    return {"status": "ok", "message": "The Alchemical Circle is ready."}
+
+# 3. 錬金術実行の窓口（POSTメソッド）
+@app.post("/alchemy", response_model=AlchemyResponse)
+def perform_alchemy(request: AlchemyRequest):
+    # ロジックの呼び出し
+    new_word, score = alchemy_service.perform_logic(
+        request.word1, request.word2, request.weight1, request.weight2
+    )
+    
+    rarity = alchemy_service.calculate_rarity(score)
+    
+    return {
+        "new_word": new_word,
+        "description": "ベクトルの交わりによって、新たな概念が具現化しました。",
+        "rarity": rarity,
+        "similarity_score": score
+    }

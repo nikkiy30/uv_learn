@@ -13,7 +13,7 @@ wheels/
 backend/.venv/
 backend/__pycache__/
 
-# Node.js関連（将来用）
+# Node.js関連
 frontend/node_modules/
 
 # 秘密情報
