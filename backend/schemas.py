@@ -1,4 +1,8 @@
 from pydantic import BaseModel, Field
+from typing import Literal, Optional
+
+# ユーザーが UI のトグルで選ぶ「演算モード」
+OperationType = Literal["add", "sub", "proj"]
 
 # 錬金術の依頼（リクエスト）
 class AlchemyRequest(BaseModel):
@@ -6,6 +10,9 @@ class AlchemyRequest(BaseModel):
     word2: str = Field(..., description="2つ目の単語", example="鳥")
     weight1: float = Field(1.0, description="1つ目の単語の重み", ge=0.0, le=2.0)
     weight2: float = Field(1.0, description="2つ目の単語の重み", ge=0.0, le=2.0)
+
+    operation: OperationType = Field("add", description="演算モード")
+    mode: Optional[str] = Field(None, description="属性付与（将来用）")
 
 # 錬金術の結果（レスポンス）
 class AlchemyResponse(BaseModel):
