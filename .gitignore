@@ -18,3 +18,7 @@ frontend/node_modules/
 
 # 秘密情報
 .env
+
+# 容量の大きいベクトルデータ
+backend/data/entity_vector.kv
+backend/data/entity_vector.model.txt
